@@ -8,7 +8,7 @@ title: Bildergalerie
 <input type="button" value="vor" onClick="if (i<pictures.length-1) { LoadPic(++i) };">
 </p>
 <p align="left">
-<img name="image" src="blank.gif">
+<img name="image" src="foto1.jpg">
 </p>
 <script type="text/javascript">
 pictures = new Array("foto1.jpg", "foto2.jpg", "foto3.jpg", "foto4.jpg", "foto5.jpg");
