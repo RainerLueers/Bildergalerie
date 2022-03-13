@@ -1,0 +1,116 @@
+<html>
+<head>
+
+<title>Bildergalerie mit Javascript</title>
+<style type="text/css">
+*html{
+margin:0;
+padding:0;
+}
+body{
+margin:0;
+padding:0;
+}
+#gallery{
+position:relative;
+width:810px;
+height:715px;
+top:20px;
+left:50%;
+margin-left:-400px;
+border:1px solid #000000;
+}
+#bildgross{
+position:absolute;
+width:800px;
+height:600px;
+top:5;
+left:5;
+}
+#navigation{
+position:absolute;
+width:800px; 
+height:100px;
+top:610px;
+left:5;
+}
+#thumbs{
+width:734px; 
+float:left; 
+white-space:nowrap; 
+overflow:hidden;
+}
+#thumbs img{
+opacity:0.6;
+filter:alpha(opacity=60);
+}
+</style>
+<script language="javascript" type="text/javascript">
+
+var scrollStep=2;  // um wieviele Pixel soll bei jedem Schritt gescrollt werden -> 2
+var timer;
+
+function scrollDivRight(){
+  clearTimeout(timer);
+  d=document.getElementById('thumbs');  // wo soll gescrollt werden -> thumbs
+  d.scrollLeft+=scrollStep;
+  timer=setTimeout("scrollDivRight()",10); // nach wievielen Millisekunden soll weitergescrollt werden -> 10
+}
+
+function scrollDivLeft(){
+  clearTimeout(timer);
+  d=document.getElementById('thumbs');
+  d.scrollLeft-=scrollStep;
+  timer=setTimeout("scrollDivLeft()",10);
+}
+
+function stopMe(){
+  clearTimeout(timer);  // beende das scrollen
+}
+
+function bildershow(bild){  // übergebener Wert für neues Bild
+	document.bild.src = document.bild2.src;  // hintenliegendes Bild = vornliegendes Bild
+	document.bild2.src = bild;  // vornliegendes Bild = neues Bild (übergebener Wert)
+	fade(0);  // aufrufen der Funktion zum langsamen Einblenden des Bildes
+	}
+	
+function fade(step) {  // step ist der opacity-Wert des neuen Bildes, Anfangs 0 (übergebener Wert)
+	var imgs = document.getElementById("bildgross").getElementsByTagName("img");  //lese die Bilder aus "bildgross" und schreib sie in ein Array
+	imgs[1].style.opacity = step/100;  //  alle Browser Wert durch 100 Teilen um 0.2 usw. zu erhalten
+	imgs[1].style.filter = "alpha(opacity=" + step + ")"; // IE
+	step = step + 2;  // step erhöhen
+	if (step <= 100) {  // ist das Bild noch nicht voll zu sehen...
+		window.setTimeout(function () { fade(step); }, 1);   // ...Funktion erneut aufrufen
+	}
+}
+	
+function opac(thumb,wert){  // übergebene Werte thumb -> welches, wert -> eine Zahl, siehe auch mouseover/mouseout-Aufruf in Klammern
+	thumb.style.opacity = wert;  // alle Browser
+	thumb.style.filter = "alpha(opacity=" + wert*100 + ")";  // Internetexplorer
+	}
+
+</script>
+</head>
+<body>
+<div id="gallery">
+<div id="bildgross">
+<img src="001.jpg" name="bild" style="position:absolute; top:0; left:0;" />
+	<img src="001.jpg" name="bild2" style="position:absolute; top:0; left:0; opacity:0; filter:alpha(opacity=0);" />
+</div>
+<div id="navigation">
+<img src="left.png" style="float:left;" onMouseOver="scrollDivLeft();" onMouseOut="stopMe()"/>
+	<div id="thumbs">
+<img src="th_001.jpg" onMouseOver="opac(this,1.0);" onMouseOut="opac(this,0.6);" onClick="bildershow('001.jpg');" />
+<img src="th_002.jpg" onMouseOver="opac(this,1.0);" onMouseOut="opac(this,0.6);" onClick="bildershow('002.jpg');" />
+<img src="th_003.jpg" onMouseOver="opac(this,1.0);" onMouseOut="opac(this,0.6);" onClick="bildershow('003.jpg');" />
+<img src="th_004.jpg" onMouseOver="opac(this,1.0);" onMouseOut="opac(this,0.6);" onClick="bildershow('004.jpg');" />
+<img src="th_005.jpg" onMouseOver="opac(this,1.0);" onMouseOut="opac(this,0.6);" onClick="bildershow('005.jpg');" />
+<img src="th_006.jpg" onMouseOver="opac(this,1.0);" onMouseOut="opac(this,0.6);" onClick="bildershow('006.jpg');" />
+<img src="th_007.jpg" onMouseOver="opac(this,1.0);" onMouseOut="opac(this,0.6);" onClick="bildershow('007.jpg');" />
+<img src="th_008.jpg" onMouseOver="opac(this,1.0);" onMouseOut="opac(this,0.6);" onClick="bildershow('008.jpg');" />
+	</div>
+<img src="right.png" style="float:right" onMouseOver="scrollDivRight();" onMouseOut="stopMe()"/>
+</div>
+</div>
+</body>
+</html>  

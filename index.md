@@ -17,3 +17,5 @@ function LoadPic(a) {
 document.images['image'].src = pictures[a];
 }
 </script>
+
+<a href= "Kunstfotos/gallery.html" target="_blank" rel="noopener noreferrer" >Bildergallerie: Kunstfotos</a>
